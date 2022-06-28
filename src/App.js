@@ -9,14 +9,28 @@ function App() {
 
   const[squares,setSquares] = useState(boxes)
 
-  const elements = squares.map(ele => (
-    <Box key = {ele.id} on = {ele.on}/>
-  ))
+  function toggle(id) {
+    setSquares(prevSq => {
+      return prevSq.map((sq) => {
+        return sq.id === id ? {...sq, on : !sq.on} : sq
+      })
+    })
+  }
+
+const squareElements = squares.map(square => (
+  <Box 
+      key={square.id} 
+      // id={square.id}
+      on={square.on} 
+      // toggle={toggle}
+      toggle={() => toggle(square.id)}
+  />
+))
 
 
   return (
     <div className="App">
-      {elements}
+      {squareElements}
     </div>
   );
 }
